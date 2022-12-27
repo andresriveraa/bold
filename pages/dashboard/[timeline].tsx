@@ -102,7 +102,7 @@ const Home = () => {
     toggleShowFilters(prev => !prev)
   }
 
-  const getTitleTable = (timeline) => {
+  const getTitleTable = (timeline: string) => {
     switch (timeline) {
       case 'hoy':
         return 'del día de hoy'
@@ -189,7 +189,7 @@ const Home = () => {
 
           <div className={styles.table}>
             <table>
-            <caption>Tus ventas {getTitleTable(timeline)}</caption>
+            <caption>Tus ventas {getTitleTable(timeline as string)}</caption>
               <tr>
                 <td>Transaccion</td>
                 <td>Fecha y hora</td>
