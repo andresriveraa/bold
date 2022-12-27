@@ -23,10 +23,15 @@
 }
 
 .totalSales, .filters, .table {
-  padding: var(--margin-container);
+  padding: 16px var(--margin-container);
+
 }
 
-.totalSales {
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .totalSales__card {
@@ -84,7 +89,10 @@
 
 .listActive {
   background-color: var(--color-background);
+}
 
+.filters button {
+  margin-top: 16px;
 }
 .table {
   background-color: var(--white);
@@ -92,19 +100,21 @@
   margin: var(--margin-container);
   box-sizing: border-box;
   border-radius: 13px;
-  overflow: hidden;
-
+  overflow: scroll;
 }
 
 .table > table {
   width: 100%;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 
-.table > h2 {
+.table > table > caption {
   background-color: var(--blue);
   color: var(--white);
   padding: 8px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .table > table tr  {
@@ -145,4 +155,37 @@
 
 .table > table td p  {
   font-size: 12px;
+}
+
+.modal {
+  opacity: 0;
+  background-color: var(--white);
+  width: 300px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition-duration: 1s;
+  position: absolute;
+  visibility: hidden;
+}
+
+.modal ul {
+  margin-bottom: 16px;
+
+}
+.modal li {
+  font-size: 20px;
+  color: var(--blue);
+} 
+
+.modal input {
+  margin-right: 8px;
+}
+
+.showModalFilters {
+ opacity: 1;
+ visibility: visible;
+ 
 }

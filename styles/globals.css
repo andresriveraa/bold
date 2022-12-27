@@ -125,3 +125,37 @@ li {
     color-scheme: dark;
   }
 }
+
+button {
+  background-color: var(--red);
+  padding: 8px 16px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 150px;
+  border: 1px solid transparent;
+  color: var(--white);
+  margin: 8px;
+}
+
+button.secondary{
+  background-color: var(--white);
+  padding: 8px 16px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 150px;
+  border: 2px solid var(--red);
+  color: var(--red);
+  margin: 8px;
+}
+
+button:hover {
+  background-color: #9b1919;
+  color: var(--white);
+  transition-duration: 500ms;
+}
+
+button.secondary:hover {
+  background-color: var(--red);
+  color: var(--white);
+  transition-duration: 500ms;
+}

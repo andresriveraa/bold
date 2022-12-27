@@ -11,6 +11,7 @@ import { categories } from '../../utils/utils'
 // models
 import { salesItem } from '../api/transactions/models'
 import Image from 'next/image'
+import { GetServerSideProps } from 'next'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -43,6 +44,7 @@ const Home = () => {
   const [transactions, setTransactions] = useState([]);
   const [totalSales, setTotalSales] = useState(0);
   const [listMenuSelected, setListMenuSelected] = useState(0);
+  const [showFilters, toggleShowFilters] = useState(false);
 
 
   useEffect(() => {
@@ -96,7 +98,8 @@ const Home = () => {
 
   const applyFilters = () => {
     if (filters.todos) router.push(`/dashboard/${timeline}?link_pago=0&datafono=0`);
-    else if (filters.datafono || filters.link) router.push(`/dashboard/${timeline}?link_pago=${filters.link}&datafono=${filters.datafono}`)
+    else if (filters.datafono || filters.link) router.push(`/dashboard/${timeline}?link_pago=${filters.link}&datafono=${filters.datafono}`);
+    toggleShowFilters(prev => !prev)
   }
 
   return (
@@ -145,28 +148,34 @@ const Home = () => {
               </li>
             </ul>
           </nav>
-          <ul>
-            {categories.map(({ name, value }) => (
-              <li key={value}>
-                <label>
-                  <input
-                    onChange={handleFilterChange}
-                    type="checkbox"
-                    checked={Boolean(filters[value as filtersOptionsT])}
-                    value={value} />
-                  {name}
-                </label>
-              </li>
-            ))}
-          </ul>
-          <button onClick={applyFilters}>aplicar</button>
+
+          <button onClick={() => toggleShowFilters(prev => !prev)}> filters</button>
+
+          <div className={`${styles.modal} ${showFilters ? styles.showModalFilters : styles.hideModalFilters} `}>
+            <ul >
+              {categories.map(({ name, value }) => (
+                <li key={value}>
+                  <label>
+                    <input
+                      onChange={handleFilterChange}
+                      type="checkbox"
+                      checked={Boolean(filters[value as filtersOptionsT])}
+                      value={value} />
+                    {name}
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <button className='secondary' onClick={applyFilters}>aplicar</button>
+
+          </div>
         </section>
 
         <section id='table' className={styles.tableContainer}>
 
           <div className={styles.table}>
-            <h2>Tus ventas de hoy</h2>
             <table>
+            <caption>Tus ventas de hoy</caption>
               <tr>
                 <td>Transaccion</td>
                 <td>Fecha y hora</td>
