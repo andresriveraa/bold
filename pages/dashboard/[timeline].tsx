@@ -102,6 +102,20 @@ const Home = () => {
     toggleShowFilters(prev => !prev)
   }
 
+  const getTitleTable = (timeline) => {
+    switch (timeline) {
+      case 'hoy':
+        return 'del día de hoy'
+      case 'semana':
+        return 'de la última semana'
+      case 'mes':
+        return 'del el último mes'
+    
+      default:
+        break;
+    }
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -138,13 +152,13 @@ const Home = () => {
           <nav className={styles.navFilters}>
             <ul>
               <li className={listMenuSelected === 0 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/hoy?link_pago=${filters.link}&datafono=${filters.datafono}`}>today</Link>
+                <Link href={`/dashboard/hoy?link_pago=${filters.link}&datafono=${filters.datafono}`}>Hoy</Link>
               </li>
               <li className={listMenuSelected === 1 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/semana?link_pago=${filters.link}&datafono=${filters.datafono}`}>this week</Link>
+                <Link href={`/dashboard/semana?link_pago=${filters.link}&datafono=${filters.datafono}`}>Última semana</Link>
               </li>
               <li className={listMenuSelected === 2 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/mes?link_pago=${filters.link}&datafono=${filters.datafono}`}>this month</Link>
+                <Link href={`/dashboard/mes?link_pago=${filters.link}&datafono=${filters.datafono}`}>Último mes</Link>
               </li>
             </ul>
           </nav>
@@ -175,7 +189,7 @@ const Home = () => {
 
           <div className={styles.table}>
             <table>
-            <caption>Tus ventas de hoy</caption>
+            <caption>Tus ventas {getTitleTable(timeline)}</caption>
               <tr>
                 <td>Transaccion</td>
                 <td>Fecha y hora</td>
