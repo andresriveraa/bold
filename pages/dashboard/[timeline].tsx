@@ -31,23 +31,21 @@ export interface transactionI {
 const Home = () => {
   const router = useRouter()
   const { timeline, link_pago = 0, datafono = 0 } = router.query
+  const [transactions, setTransactions] = useState<transactionI[]>([]);
+  const [totalSales, setTotalSales] = useState(0);
+  const [listMenuSelected, setListMenuSelected] = useState(0);
   const [filters, setFilters] = useState({
     todos: 0,
     datafono: 0,
     link: 0
   });
 
-  const [transactions, setTransactions] = useState<transactionI[]>([]);
-  const [totalSales, setTotalSales] = useState(0);
-  const [listMenuSelected, setListMenuSelected] = useState(0);
-
-
   useEffect(() => {
     (async () => {
       try {
         const data = await fetch(`/api/transactions/${timeline}?link_pago=${link_pago}&datafono=${datafono}`);
         const dataJson = await data.json();
-        setTransactions(dataJson?.allSales);
+        await setTransactions(dataJson?.allSales);
       } catch (error) {
         console.error(error)
       }
@@ -85,7 +83,6 @@ const Home = () => {
 
   }, [timeline, datafono, link_pago])
 
-
   const handleFilterChange = (e: ChangeEvent) => {
     const { value, checked } = e.target as HTMLInputElement;
     setFilters(prevState => ({ ...prevState, [value]: Number(checked) }))
@@ -97,7 +94,6 @@ const Home = () => {
   }
 
   const getTitleTable = () => {
-
     switch (timeline) {
       case 'hoy':
         return  'Tus ventas del día de hoy'
@@ -105,8 +101,8 @@ const Home = () => {
         return 'Tus ventas de la última semana'
       case 'mes':
         return 'Tus ventas del el último mes'
-
       default:
+        return 'Tus ventas del el último mes'
         break;
     }
   }

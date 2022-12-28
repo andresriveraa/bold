@@ -11,18 +11,14 @@ const Navbar = () => {
     <Image
       src="/bold_logo.svg"
       alt="Bold logo"
-      tabIndex={1}
+      tabIndex={0}
       className={styles.navbar__logo}
       width={96}
       height={60}
     />
     <ul className={styles.navbar__list}>
-      <Link href='mi_negocio' >
-        <li>Mi Negocio</li>
-      </Link>
-      <Link href='mi_negocio' >
-        <li>Ayuda</li>
-      </Link>
+      <li title='link que te lleva al perfil de tu negocio'><Link href='mi_negocio' >Mi Negocio</Link></li>
+      <li title='link que te lleva a la pagin de ayuda'><Link href='mi_negocio' >Ayuda</Link></li>
     </ul>
   </nav>
   )

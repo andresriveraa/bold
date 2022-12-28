@@ -43,20 +43,20 @@ const Filters = ({
     <>
       <section id="filters" className={styles.filters}>
         <nav className={styles.navFilters}>
-          <ul>
-            <li className={listMenuSelected === 0 ? styles.listActive : styles.list}>
+          <ul title='menu donde puedes escoger entre listar las ventas de hoy, esta semana y el ultimo mes'>
+            <li className={listMenuSelected === 0 ? styles.listActive : styles.list} title='listar las ventas de hoy'>
               <Link href={`/dashboard/hoy?link_pago=${filters.link}&datafono=${filters.datafono}`}>Hoy</Link>
             </li>
-            <li className={listMenuSelected === 1 ? styles.listActive : styles.list}>
+            <li className={listMenuSelected === 1 ? styles.listActive : styles.list} title='listar las ventas del ultimo mes'>
               <Link href={`/dashboard/semana?link_pago=${filters.link}&datafono=${filters.datafono}`}>Última semana</Link>
             </li>
-            <li className={listMenuSelected === 2 ? styles.listActive : styles.list}>
+            <li className={listMenuSelected === 2 ? styles.listActive : styles.list} title='listar las ventas del ultimo mes'>
               <Link href={`/dashboard/mes?link_pago=${filters.link}&datafono=${filters.datafono}`}>Último mes</Link>
             </li>
           </ul>
         </nav>
 
-        <button onClick={() => toggleShowFilters(prev => !prev)}> filters</button>
+        <button onClick={() => toggleShowFilters(prev => !prev)} title='este boton muestra filtros adicionales'> filters</button>
 
         <div className={`${styles.modal} ${showFilters ? styles.showModalFilters : styles.hideModalFilters} `}>
           <ul >
