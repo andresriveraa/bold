@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../styles/totalsales.module.css'
+import { formatMoney } from '../../utils/utils'
 
 interface totalSalesI {
   totalSales: number
@@ -11,7 +12,7 @@ const TotalSales = ({totalSales} : totalSalesI) => {
     <div className={styles.totalSales__card}>
       <p>Total de ventas de hoy</p>
       <div className={styles.card__info}>
-        <h1 className='card__title'>{totalSales}</h1>
+        <h1 className='card__title'>$ {formatMoney(totalSales)}</h1>
         <p>total sales</p>
       </div>
     </div>

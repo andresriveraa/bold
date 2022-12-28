@@ -31,12 +31,12 @@ const Filters = ({
   handleFilterChange,
   applyFilters
 } : filtersI) => {
+  
   const [showFilters, toggleShowFilters] = useState(false);
 
   const applyFiltersComponent = () => {
     applyFilters()
     toggleShowFilters(prev => !prev)
-
   }
 
   return (
@@ -73,6 +73,7 @@ const Filters = ({
               </li>
             ))}
           </ul>
+          
           <button className='secondary' onClick={applyFiltersComponent}>aplicar</button>
 
         </div>
