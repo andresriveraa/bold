@@ -3,33 +3,29 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Inter } from '@next/font/google'
 import Link from 'next/link'
+// components
+import Navbar from '../../components/navbar/Navbar'
+import TotalSales from '../../components/totalSales/totalSales'
+import Filters from '../../components/filters/Filters'
+import Table from '../../components/table/table'
 // styles 
 import styles from '../../styles/Home.module.css'
 // utils 
-import { categories } from '../../utils/utils'
-// services
-// models
-import { salesItem } from '../api/transactions/models'
-import Image from 'next/image'
-import { GetServerSideProps } from 'next'
 
 
-const inter = Inter({ subsets: ['latin'] })
-
-declare type filtersT = {
-  todos: number;
-  datafono: number;
-  link: number;
+interface amountI {
+  value: number,
+  deduction: number
 }
-
-export declare const filtersOptions: {
-  todos: number;
-  datafono: number;
-  link: number;
+export interface transactionI {
+  id: string;
+  transaction: string;
+  date: string;
+  payment_method: string;
+  payment_type: string;
+  transction_id: string;
+  amount: amountI
 }
-
-
-export declare type filtersOptionsT = keyof typeof filtersOptions;
 
 
 const Home = () => {
@@ -41,10 +37,9 @@ const Home = () => {
     link: 0
   });
 
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<transactionI[]>([]);
   const [totalSales, setTotalSales] = useState(0);
   const [listMenuSelected, setListMenuSelected] = useState(0);
-  const [showFilters, toggleShowFilters] = useState(false);
 
 
   useEffect(() => {
@@ -99,18 +94,18 @@ const Home = () => {
   const applyFilters = () => {
     if (filters.todos) router.push(`/dashboard/${timeline}?link_pago=0&datafono=0`);
     else if (filters.datafono || filters.link) router.push(`/dashboard/${timeline}?link_pago=${filters.link}&datafono=${filters.datafono}`);
-    toggleShowFilters(prev => !prev)
   }
 
-  const getTitleTable = (timeline: string) => {
+  const getTitleTable = () => {
+
     switch (timeline) {
       case 'hoy':
-        return 'del día de hoy'
+        return  'Tus ventas del día de hoy'
       case 'semana':
-        return 'de la última semana'
+        return 'Tus ventas de la última semana'
       case 'mes':
-        return 'del el último mes'
-    
+        return 'Tus ventas del el último mes'
+
       default:
         break;
     }
@@ -119,99 +114,19 @@ const Home = () => {
   return (
     <>
       <main className={styles.main}>
-        <nav className={styles.navbar} id='navbar'>
-          <Image
-            src="/bold_logo.svg"
-            alt="Bold logo"
-            tabIndex={1}
-            className={styles.navbar__logo}
-            width={96}
-            height={60}
-          />
-          <ul className={styles.navbar__list}>
-            <Link href='mi_negocio' >
-              <li>Mi Negocio</li>
-            </Link>
-            <Link href='mi_negocio' >
-              <li>Ayuda</li>
-            </Link>
-          </ul>
-        </nav>
+        <Navbar />
+        <TotalSales totalSales={totalSales} />
+        <Filters
+          listMenuSelected={listMenuSelected}
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          applyFilters={applyFilters}
+        />
 
-        <section className={styles.totalSales}>
-          <div className={styles.totalSales__card}>
-            <p>Total de ventas de hoy</p>
-            <div className={styles.card__info}>
-              <h1 className='card__title'>{totalSales}</h1>
-              <p>total sales</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="filters" className={styles.filters}>
-          <nav className={styles.navFilters}>
-            <ul>
-              <li className={listMenuSelected === 0 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/hoy?link_pago=${filters.link}&datafono=${filters.datafono}`}>Hoy</Link>
-              </li>
-              <li className={listMenuSelected === 1 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/semana?link_pago=${filters.link}&datafono=${filters.datafono}`}>Última semana</Link>
-              </li>
-              <li className={listMenuSelected === 2 ? styles.listActive : styles.list}>
-                <Link href={`/dashboard/mes?link_pago=${filters.link}&datafono=${filters.datafono}`}>Último mes</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <button onClick={() => toggleShowFilters(prev => !prev)}> filters</button>
-
-          <div className={`${styles.modal} ${showFilters ? styles.showModalFilters : styles.hideModalFilters} `}>
-            <ul >
-              {categories.map(({ name, value }) => (
-                <li key={value}>
-                  <label>
-                    <input
-                      onChange={handleFilterChange}
-                      type="checkbox"
-                      checked={Boolean(filters[value as filtersOptionsT])}
-                      value={value} />
-                    {name}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <button className='secondary' onClick={applyFilters}>aplicar</button>
-
-          </div>
-        </section>
-
-        <section id='table' className={styles.tableContainer}>
-
-          <div className={styles.table}>
-            <table>
-            <caption>Tus ventas {getTitleTable(timeline as string)}</caption>
-              <tr>
-                <td>Transaccion</td>
-                <td>Fecha y hora</td>
-                <td>Metodo de pago</td>
-                <td>transaccion Id</td>
-                <td>Monto</td>
-              </tr>
-
-              {
-                transactions.map((transaction: salesItem, i) =>
-                  <tr key={i}>
-                    <td>{transaction?.transaction}</td>
-                    <td>{transaction?.date}</td>
-                    <td>{transaction?.payment_method}</td>
-                    <td>{transaction?.transction_id}</td>
-                    <td>{transaction?.amount.value} <br /> {Boolean(transaction?.amount?.deduction) && <> <p>Deduccion Bold<br /></p><span> {transaction?.amount?.deduction}</span></>}</td>
-                  </tr>
-                )
-              }
-            </table>
-          </div>
-        </section>
+        <Table
+          caption={getTitleTable() ?? ''}
+          transactions={transactions}
+        />
       </main>
     </>
   )

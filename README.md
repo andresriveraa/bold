@@ -1,3 +1,8 @@
+# This application have made with Next 13 and deployed in Vercel [link](https://bold-andres-rivera-frontend.vercel.app/)
+
+ Interview Test for Bold made by [Bysebastean.com](https://bysebastean.com)
+
+___________________
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -8,6 +13,12 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
+```
+## to Build
+```bash
+npm run build
+# or
+yarn build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

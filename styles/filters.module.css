@@ -1,0 +1,68 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.navFilters > ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.navFilters > ul > li {
+  padding: 8px 16px;
+  border-radius: 13px;
+}
+
+.navFilters > ul > li > a:active,
+.navFilters > ul > li > a:hover {
+  background-color: var(--color-background);
+  background-color: var(--color-background);
+}
+
+.listActive {
+  background-color: var(--color-background);
+}
+
+.filters button {
+  margin-top: 16px;
+}
+
+.modal {
+  opacity: 0;
+  background-color: var(--white);
+  width: 300px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition-duration: 1s;
+  position: absolute;
+  visibility: hidden;
+}
+
+.modal ul {
+  margin-bottom: 16px;
+
+}
+.modal li {
+  font-size: 20px;
+  color: var(--blue);
+} 
+
+.modal input {
+  margin-right: 8px;
+}
+
+.showModalFilters {
+ opacity: 1;
+ visibility: visible;
+ 
+}

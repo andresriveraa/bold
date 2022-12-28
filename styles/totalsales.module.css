@@ -1,0 +1,37 @@
+.totalSales {
+  padding: 16px var(--margin-container);
+}
+
+.totalSales__card {
+  width: 50%;
+  min-width: 300px;
+  border-radius: 13px;
+  margin: auto;
+  background-color: var(--red);
+  text-align: center;
+  background-color: var(--white);
+  overflow: hidden;
+}
+
+.totalSales__card  h1 {
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.totalSales__card p:first-child {
+  background: linear-gradient(100deg,var(--red) 0%,var(--blue) 90%);
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+
+
+.card__info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 120px;
+}

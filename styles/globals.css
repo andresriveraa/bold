@@ -41,6 +41,7 @@
 
   /* colors bold  */
   --blue: #111e6c;
+  --dark-blue: #0d122c;
   --red: #ef434e;
   --dark-grey: #323232;
   --light-grey: #969696;
@@ -101,10 +102,11 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: var(--color-background);
+  color: var(--dark-blue);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color:var(--dark-blue);
 }
 
 a {
