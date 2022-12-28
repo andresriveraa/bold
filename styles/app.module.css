@@ -5,9 +5,17 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  text-align: center;
 }
 
 .main  h1 {
   margin-bottom: 16px;
   color: var(--blue);
+}
+
+@media screen and (max-width: 420px) {
+  .main h1 {
+    font-size: 24px ;
+  }
+  
 }
